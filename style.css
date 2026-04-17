@@ -140,6 +140,9 @@ body {
 .spot-marker.done text { fill: #3a2a10 !important; cursor: default; }
 .spot-marker.done .spot-icon { opacity: 0.2; }
 
+.boat-marker { cursor: pointer; }
+.boat-marker.visited { opacity: 0.35; cursor: default; }
+
 .pike-display {
   display: flex;
   justify-content: space-between;

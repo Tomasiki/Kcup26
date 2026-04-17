@@ -75,8 +75,9 @@ const GAME_DATA = {
 // GAME STATE
 // ═══════════════════════════════════════════════════════════
 let state = {
-  biggestPike: null,
-  totalLength: 0,
+  biggestPike:  null,
+  totalLength:  0,
+  boatVisited:  false,
   spots: [
     { id:'vastaranta',     name:'Vastaranta',     done:false, catch:null },
     { id:'kulmamummola',   name:'Kulmamummola',   done:false, catch:null },
@@ -110,6 +111,7 @@ function startGame() {
 function resetState() {
   state.biggestPike = null;
   state.totalLength = 0;
+  state.boatVisited = false;
   state.spots.forEach(s => { s.done = false; s.catch = null; });
   state.currentSpot    = null;
   state.currentWeather = null;
@@ -138,6 +140,22 @@ function renderMap() {
     state.biggestPike !== null ? `${state.biggestPike} cm` : '— cm';
 
   document.getElementById('end-overlay').style.display = 'none';
+
+  const boatMarker = document.getElementById('boat-marker');
+  if (boatMarker) {
+    boatMarker.classList.toggle('visited', state.boatVisited);
+  }
+}
+
+function clickBoat() {
+  if (state.boatVisited) return;
+  document.getElementById('boat-overlay').style.display = 'flex';
+}
+
+function closeBoatOverlay() {
+  state.boatVisited = true;
+  document.getElementById('boat-overlay').style.display = 'none';
+  renderMap();
 }
 
 function selectSpot(spotId) {
