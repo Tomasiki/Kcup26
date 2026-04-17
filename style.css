@@ -1,0 +1,339 @@
+/* ═══════════════════════════════════
+   VARIABLES & RESET
+   Amiga / Defender of the Crown style
+═══════════════════════════════════ */
+:root {
+  --bg:         #1a0e05;
+  --gold:       #d4a832;
+  --gold-dim:   #8b6914;
+  --gold-dark:  #5a3a00;
+  --white:      #f0e0c0;
+  --blue-lake:  #1a3560;
+  --blue-light: #2a4a80;
+  --green-land: #1e3a12;
+  --frame:      #6b4f12;
+  --btn-top:    #8b4a00;
+  --btn-bot:    #5a2d00;
+  --gray:       #7a6a50;
+  --gray-dark:  #2a1a08;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: Georgia, 'Times New Roman', serif;
+  max-width: 420px;
+  margin: 0 auto;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ═══════════════════════════════════
+   SCREEN MANAGEMENT
+═══════════════════════════════════ */
+.screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px 16px;
+  gap: 12px;
+}
+.screen.active { display: flex; }
+
+/* ═══════════════════════════════════
+   BUTTONS
+═══════════════════════════════════ */
+.btn-primary {
+  background: linear-gradient(180deg, var(--btn-top), var(--btn-bot));
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  font-family: Georgia, serif;
+  font-size: 13px;
+  padding: 12px 0;
+  letter-spacing: 3px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+.btn-primary:active { filter: brightness(1.3); }
+
+.btn-cast {
+  background: linear-gradient(180deg, var(--btn-top), var(--btn-bot));
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  font-family: Georgia, serif;
+  font-size: 18px;
+  padding: 16px 0;
+  letter-spacing: 4px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: auto;
+}
+.btn-cast:active   { filter: brightness(1.3); }
+.btn-cast:disabled { background: var(--gray-dark); color: var(--gray); border-color: var(--frame); cursor: default; }
+
+.btn-secondary {
+  background: var(--gray-dark);
+  color: var(--gold-dim);
+  border: 1px solid var(--frame);
+  font-family: Georgia, serif;
+  font-size: 11px;
+  padding: 10px 0;
+  letter-spacing: 2px;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* ═══════════════════════════════════
+   START SCREEN
+═══════════════════════════════════ */
+.title-stars { color: var(--gold-dim); font-size: 14px; letter-spacing: 6px; margin-top: 20px; }
+.title-main  { color: var(--gold); font-size: 26px; letter-spacing: 2px; text-align: center; margin-top: 8px; font-weight: bold; }
+.title-sub   { color: var(--white); font-size: 14px; letter-spacing: 1px; text-align: center; font-style: italic; }
+
+.start-lake {
+  background: linear-gradient(180deg, #1e3a12, #0f2008);
+  border: 1px solid var(--frame);
+  padding: 24px;
+  text-align: center;
+  width: 100%;
+  position: relative;
+}
+.start-lake::before { content: '⚜'; position: absolute; top: -8px; left: -2px; color: var(--gold); font-size: 13px; }
+.start-lake::after  { content: '⚜'; position: absolute; top: -8px; right: -2px; color: var(--gold); font-size: 13px; }
+
+.start-waves    { color: var(--blue-light); font-size: 14px; letter-spacing: 3px; opacity: 0.7; }
+.start-angler   { font-size: 44px; margin: 10px 0; }
+.start-lake-name { color: var(--gold-dim); font-size: 10px; letter-spacing: 5px; font-style: italic; }
+
+.press-hint { color: var(--gray); font-size: 9px; letter-spacing: 3px; font-style: italic; }
+
+/* ═══════════════════════════════════
+   MAP SCREEN
+═══════════════════════════════════ */
+.map-header {
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-align: center;
+  width: 100%;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--frame);
+}
+
+.map-container {
+  width: 100%;
+  max-width: 320px;
+  border: 2px solid var(--frame);
+  position: relative;
+}
+.map-container::before { content: '⚜'; position: absolute; top: -9px; left: -3px; color: var(--gold); font-size: 12px; z-index: 1; background: var(--bg); }
+.map-container::after  { content: '⚜'; position: absolute; top: -9px; right: -3px; color: var(--gold); font-size: 12px; z-index: 1; background: var(--bg); }
+
+#lake-map { width: 100%; height: auto; display: block; }
+
+.spot-marker { cursor: pointer; }
+.spot-marker.done text { fill: #3a2a10 !important; cursor: default; }
+.spot-marker.done .spot-icon { opacity: 0.2; }
+
+.pike-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--frame);
+  padding: 8px 12px;
+  width: 100%;
+  max-width: 320px;
+  background: var(--gray-dark);
+}
+.pike-label { color: var(--gold-dim); font-size: 10px; letter-spacing: 2px; font-style: italic; }
+.pike-value { color: var(--gold); font-size: 13px; letter-spacing: 2px; font-weight: bold; }
+
+.map-hint { color: var(--gray); font-size: 9px; letter-spacing: 2px; font-style: italic; }
+
+/* End overlay */
+.end-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 5, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+}
+.end-box {
+  background: var(--bg);
+  border: 2px solid var(--gold-dim);
+  padding: 24px 20px;
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  position: relative;
+}
+.end-box::before { content: '⚜'; position: absolute; top: -9px; left: -3px; color: var(--gold); font-size: 14px; background: var(--bg); }
+.end-box::after  { content: '⚜'; position: absolute; top: -9px; right: -3px; color: var(--gold); font-size: 14px; background: var(--bg); }
+
+.end-title         { color: var(--gold); font-size: 16px; letter-spacing: 2px; text-align: center; font-style: italic; }
+.end-biggest-label { color: var(--gray); font-size: 10px; letter-spacing: 2px; font-style: italic; }
+.end-biggest-value { color: var(--gold); font-size: 32px; font-weight: bold; letter-spacing: 3px; }
+.end-summary       { width: 100%; border-top: 1px solid var(--frame); padding-top: 8px; }
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--gray-dark);
+  font-size: 11px;
+  color: var(--white);
+}
+.summary-row:last-child { border-bottom: none; }
+
+/* ═══════════════════════════════════
+   FISHING SCREEN
+═══════════════════════════════════ */
+.fishing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid var(--frame);
+  padding-bottom: 8px;
+}
+.fishing-spot-name { color: var(--gold); font-size: 13px; letter-spacing: 2px; font-style: italic; }
+.cast-dots         { color: var(--gold-dim); font-size: 14px; letter-spacing: 3px; }
+
+.status-row { display: flex; gap: 8px; width: 100%; }
+.weather-box, .lure-box {
+  background: var(--gray-dark);
+  border: 1px solid var(--frame);
+  padding: 8px;
+  text-align: center;
+}
+.weather-box  { flex: 0 0 72px; }
+.lure-box     { flex: 1; }
+.weather-emoji { font-size: 24px; }
+.weather-text  { color: var(--gray); font-size: 8px; letter-spacing: 1px; margin-top: 3px; font-style: italic; }
+.lure-label    { color: var(--gray); font-size: 8px; letter-spacing: 1px; font-style: italic; }
+.lure-name     { color: var(--gold); font-size: 9px; letter-spacing: 1px; margin-top: 3px; line-height: 1.4; }
+
+/* Lure selector */
+.lure-selector       { width: 100%; }
+.lure-selector-title { color: var(--gray); font-size: 9px; letter-spacing: 2px; text-align: center; margin-bottom: 6px; font-style: italic; }
+.lure-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.lure-btn {
+  background: var(--gray-dark);
+  border: 1px solid var(--frame);
+  color: var(--white);
+  font-family: Georgia, serif;
+  font-size: 11px;
+  padding: 8px 12px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lure-icon { flex-shrink: 0; display: block; }
+.lure-btn:active { border-color: var(--gold); color: var(--gold); background: #1a0e00; }
+
+/* Water area */
+.water-area {
+  position: relative;
+  background: linear-gradient(180deg, #071428, #0a1628);
+  border: 1px solid var(--blue-lake);
+  width: 100%;
+  min-height: 175px;
+  overflow: hidden;
+}
+
+/* Shimmer lines */
+.water-shimmer { position: absolute; height: 1px; background: var(--blue-light); }
+.water-shimmer.s1 { bottom: 74px; left: 5%;  right: 44%; opacity: 0.35; }
+.water-shimmer.s2 { bottom: 57px; left: 12%; right: 30%; opacity: 0.25; }
+.water-shimmer.s3 { bottom: 40px; left: 5%;  right: 54%; opacity: 0.30; }
+
+/* Fisherman */
+.fisher-svg { position: absolute; right: 0; bottom: 0; display: block; }
+.water-area.casting .fishing-line,
+.water-area.splash  .fishing-line { opacity: 0 !important; }
+
+/* Cast arc */
+.cast-arc {
+  position: absolute;
+  top: 68px;
+  right: 75px;
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0;
+}
+@keyframes arcFly {
+  0%   { transform: translate(0,    0);          opacity: 1; }
+  35%  { transform: translate(-55px, -50px);     opacity: 1; }
+  70%  { transform: translate(-88px,  8px);      opacity: 1; }
+  100% { transform: translate(-100px, 40px);     opacity: 0; }
+}
+.water-area.casting .cast-arc { animation: arcFly 0.7s ease-out forwards; }
+
+/* Splash */
+.splash-fx {
+  position: absolute;
+  right: 171px;
+  bottom: 60px;
+  font-size: 22px;
+  opacity: 0;
+}
+@keyframes splashPop {
+  0%   { opacity: 0; transform: scale(0.4); }
+  45%  { opacity: 1; transform: scale(1.5); }
+  100% { opacity: 0; transform: scale(1);   }
+}
+.water-area.splash .splash-fx { animation: splashPop 0.4s ease-out forwards; }
+
+/* Fish jump on catch */
+.fish-fx {
+  position: absolute;
+  right: 171px;
+  bottom: 62px;
+  font-size: 22px;
+  opacity: 0;
+}
+@keyframes fishJump {
+  0%   { transform: translate(0,     0)   rotate(0deg);   opacity: 0; }
+  15%  { transform: translate(-8px, -22px) rotate(-35deg); opacity: 1; }
+  55%  { transform: translate(-14px,-52px) rotate(-60deg); opacity: 1; }
+  100% { transform: translate(-4px, -18px) rotate(-20deg); opacity: 0; }
+}
+.water-area.fish-catch .fish-fx { animation: fishJump 0.6s ease-out forwards; }
+
+/* Cast result */
+.cast-result { width: 100%; padding: 12px; text-align: center; }
+.cast-result.catch { background: #0f1e08; border: 1px solid var(--gold-dim); }
+.cast-result.miss  { background: var(--gray-dark); border: 1px solid var(--frame); }
+.catch-length { color: var(--gold); font-size: 16px; letter-spacing: 2px; font-style: italic; }
+.new-record   { color: #c8a028; font-size: 10px; letter-spacing: 2px; margin-top: 5px; }
+.miss-text    { color: var(--gray); font-size: 13px; letter-spacing: 3px; font-style: italic; }
+
+/* ═══════════════════════════════════
+   SCREEN FLASH (confetti level 3)
+═══════════════════════════════════ */
+@keyframes screenFlash {
+  0%, 100% { background: var(--bg); }
+  20%, 60%  { background: #3a2000; }
+  40%       { background: #6a4000; }
+}
+body.flash { animation: screenFlash 0.6s ease; }

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>KoomaCup 26</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- SCREEN 1: START                    -->
+  <!-- ═══════════════════════════════════ -->
+  <div id="screen-start" class="screen active">
+    <div class="title-stars">⚜ ⚜ ⚜ ⚜ ⚜</div>
+    <h1 class="title-main">KoomaCup 26</h1>
+    <h2 class="title-sub">Hunt for Pötkäle</h2>
+    <div class="start-lake">
+      <div class="start-waves">〰〰〰〰〰〰</div>
+      <div class="start-angler">🎣</div>
+      <div class="start-lake-name">Kurkelanjärvi</div>
+    </div>
+    <button class="btn-primary" onclick="startGame()">⚜ START ⚜</button>
+    <div class="press-hint">press to begin</div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- SCREEN 2: MAP                      -->
+  <!-- ═══════════════════════════════════ -->
+  <div id="screen-map" class="screen">
+    <div class="map-header">⚜ KoomaCup 26 ⚜</div>
+
+    <div class="map-container">
+      <svg id="lake-map" viewBox="0 0 175 230" xmlns="http://www.w3.org/2000/svg">
+        <!-- Land background -->
+        <rect width="175" height="230" fill="#1e3a12"/>
+        <!-- Dithering texture on land -->
+        <rect width="175" height="230" fill="url(#dit)" opacity="0.25"/>
+        <defs>
+          <pattern id="dit" width="4" height="4" patternUnits="userSpaceOnUse">
+            <rect width="2" height="2" fill="#2a4a18"/>
+            <rect x="2" y="2" width="2" height="2" fill="#1e3a12"/>
+          </pattern>
+        </defs>
+
+        <!-- Lake shape (Kurkelanjärvi) -->
+        <polygon points="
+          85,4  93,9  101,18  109,31  116,49  120,70  122,94
+          126,116 128,136 124,155 118,172 122,189 129,204 131,218
+          122,224 111,220 103,207 96,191 87,196 82,208 76,220
+          65,224 56,218 57,200 63,184 58,168 50,150 44,132
+          41,114 40,94  44,77  40,61  48,46  57,33  68,21  76,11
+        " fill="#1a3560" stroke="#0a1a30" stroke-width="1.5"/>
+
+        <!-- Lake depth highlight -->
+        <polygon points="92,12 100,22 106,38 110,58 112,80 114,102 112,122 108,142 112,158 118,172"
+          fill="#1e3d6b" opacity="0.4"/>
+
+        <!-- Shimmer lines -->
+        <line x1="68" y1="65"  x2="115" y2="65"  stroke="#2a4a80" stroke-width="1" opacity="0.7"/>
+        <line x1="62" y1="115" x2="120" y2="115" stroke="#1e3d6b" stroke-width="1" opacity="0.6"/>
+        <line x1="58" y1="165" x2="116" y2="165" stroke="#2a4a80" stroke-width="1" opacity="0.7"/>
+
+        <!-- Spot 1: Vastaranta -->
+        <g id="spot-vastaranta" class="spot-marker" onclick="selectSpot('vastaranta')">
+          <text x="50"  y="207" font-size="10" font-family="serif" text-anchor="middle" fill="#d4a832">✙</text>
+          <text x="26"  y="220" font-size="5"  font-family="serif" fill="#c8a028" font-style="italic">Vastaranta</text>
+          <!-- Sheep / lammas -->
+          <g class="spot-icon" transform="translate(28, 206)">
+            <ellipse cx="5" cy="4" rx="5" ry="3" fill="#d0c890"/>
+            <ellipse cx="3" cy="3" rx="2.5" ry="1.5" fill="#ddd0a0"/>
+            <ellipse cx="7" cy="2" rx="2.5" ry="1.5" fill="#ddd0a0"/>
+            <rect x="9" y="1.5" width="4" height="4" rx="1" fill="#2a1808"/>
+            <circle cx="12.5" cy="3" r="0.6" fill="#d0c890"/>
+            <line x1="3" y1="7" x2="2.5" y2="11" stroke="#2a1808" stroke-width="1"/>
+            <line x1="6.5" y1="7" x2="6.5" y2="11" stroke="#2a1808" stroke-width="1"/>
+          </g>
+        </g>
+
+        <!-- Spot 2: Kulmamummola -->
+        <g id="spot-kulmamummola" class="spot-marker" onclick="selectSpot('kulmamummola')">
+          <text x="44"  y="148" font-size="10" font-family="serif" text-anchor="middle" fill="#d4a832">✙</text>
+          <text x="2"   y="147" font-size="5"  font-family="serif" fill="#c8a028" font-style="italic">Kulma-</text>
+          <text x="2"   y="153" font-size="5"  font-family="serif" fill="#c8a028" font-style="italic">mummola</text>
+          <!-- Log cabin / hirsitatlo -->
+          <g class="spot-icon" transform="translate(20, 126)">
+            <rect x="8" y="0" width="2" height="4" fill="#3a1800"/>
+            <polygon points="0,8 6.5,1 13,8" fill="#4a2800"/>
+            <rect x="1" y="8" width="11" height="9" fill="#2a1000"/>
+            <line x1="1" y1="9.5"  x2="12" y2="9.5"  stroke="#3a2000" stroke-width="0.8"/>
+            <line x1="1" y1="11.5" x2="12" y2="11.5" stroke="#3a2000" stroke-width="0.8"/>
+            <line x1="1" y1="13.5" x2="12" y2="13.5" stroke="#3a2000" stroke-width="0.8"/>
+            <rect x="4" y="13" width="4" height="4" fill="#0a0604"/>
+            <rect x="8" y="9"  width="3" height="3" fill="#8b6914" opacity="0.5"/>
+          </g>
+        </g>
+
+        <!-- Spot 3: Takasuora -->
+        <g id="spot-takasuora" class="spot-marker" onclick="selectSpot('takasuora')">
+          <text x="42"  y="70"  font-size="10" font-family="serif" text-anchor="middle" fill="#d4a832">✙</text>
+          <text x="2"   y="68"  font-size="5"  font-family="serif" fill="#c8a028" font-style="italic">Takasuora</text>
+          <!-- Wheat field / viljapelto -->
+          <g class="spot-icon" transform="translate(30, 57)">
+            <line x1="0" y1="12" x2="11" y2="12" stroke="#5a4010" stroke-width="1"/>
+            <line x1="1.5" y1="5"  x2="1.5" y2="12" stroke="#b89820" stroke-width="1.2"/>
+            <line x1="4"   y1="4"  x2="4"   y2="12" stroke="#b89820" stroke-width="1.2"/>
+            <line x1="7"   y1="5"  x2="7"   y2="12" stroke="#b89820" stroke-width="1.2"/>
+            <line x1="10"  y1="4"  x2="10"  y2="12" stroke="#b89820" stroke-width="1.2"/>
+            <ellipse cx="1.5" cy="3.5" rx="1.2" ry="2" fill="#c8a028"/>
+            <ellipse cx="4"   cy="2.5" rx="1.2" ry="2" fill="#c8a028"/>
+            <ellipse cx="7"   cy="3.5" rx="1.2" ry="2" fill="#c8a028"/>
+            <ellipse cx="10"  cy="2.5" rx="1.2" ry="2" fill="#c8a028"/>
+          </g>
+        </g>
+
+        <!-- Spot 4: Kallion edusta -->
+        <g id="spot-kallion_edusta" class="spot-marker" onclick="selectSpot('kallion_edusta')">
+          <text x="122" y="130" font-size="10" font-family="serif" text-anchor="middle" fill="#d4a832">✙</text>
+          <text x="129" y="128" font-size="5"  font-family="serif" fill="#c8a028" font-style="italic">Kallion</text>
+          <text x="129" y="134" font-size="5"  font-family="serif" fill="#c8a028" font-style="italic">edusta</text>
+          <!-- Cliff / jylhä kallio -->
+          <g class="spot-icon" transform="translate(149, 117)">
+            <polygon points="0,12 2,7 5,10 7,4 10,7 13,2 17,5 20,0 22,4 22,12" fill="#4a3a28"/>
+            <polygon points="13,2 17,5 20,0 22,4 22,8" fill="#6a5a40"/>
+            <polygon points="0,12 2,7 5,10 7,4 8,6 3,12" fill="#2a1a10"/>
+          </g>
+        </g>
+
+        <!-- Spot 5: Vanha sauna -->
+        <g id="spot-vanha_sauna" class="spot-marker" onclick="selectSpot('vanha_sauna')">
+          <text x="118" y="204" font-size="10" font-family="serif" text-anchor="middle" fill="#d4a832">✙</text>
+          <text x="126" y="202" font-size="5"  font-family="serif" fill="#c8a028" font-style="italic">Vanha</text>
+          <text x="126" y="208" font-size="5"  font-family="serif" fill="#c8a028" font-style="italic">sauna</text>
+          <!-- Old sauna / vanha tumma puusauna, katto vähän romahtanut -->
+          <g class="spot-icon" transform="translate(141, 209)">
+            <rect x="0" y="8" width="13" height="9" fill="#1a0c06"/>
+            <line x1="0" y1="9.5"  x2="13" y2="9.5"  stroke="#2a1808" stroke-width="0.8"/>
+            <line x1="0" y1="11.5" x2="13" y2="11.5" stroke="#2a1808" stroke-width="0.8"/>
+            <line x1="0" y1="13.5" x2="13" y2="13.5" stroke="#2a1808" stroke-width="0.8"/>
+            <polygon points="-1,9 4,1 14,6" fill="#0f0808"/>
+            <line x1="4" y1="1" x2="14" y2="6" stroke="#1e1010" stroke-width="0.7"/>
+            <rect x="4" y="13" width="3" height="4" fill="#060402"/>
+          </g>
+        </g>
+
+        <!-- Compass -->
+        <text x="160" y="14" fill="#d4a832" font-size="9" font-family="serif" font-weight="bold">N</text>
+        <line x1="164" y1="16" x2="164" y2="24" stroke="#d4a832" stroke-width="1"/>
+
+        <!-- Border -->
+        <rect x="1" y="1" width="173" height="228" fill="none" stroke="#6b4f12" stroke-width="1.5"/>
+      </svg>
+    </div>
+
+    <div class="pike-display">
+      <span class="pike-label">Suurin hauki</span>
+      <span id="biggest-pike" class="pike-value">— cm</span>
+    </div>
+    <div class="map-hint">valitse kalapaikka</div>
+
+    <!-- End screen overlay (shown over map when game ends) -->
+    <div id="end-overlay" class="end-overlay" style="display:none">
+      <div class="end-box">
+        <div class="end-title">⚜ Peli päättyi ⚜</div>
+        <div class="end-biggest-label">Isoin hauki</div>
+        <div id="end-biggest" class="end-biggest-value">— cm</div>
+        <div id="end-summary" class="end-summary"></div>
+        <button class="btn-primary" onclick="restartGame()">⚜ Pelaa uudelleen ⚜</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- SCREEN 3: FISHING                  -->
+  <!-- ═══════════════════════════════════ -->
+  <div id="screen-fishing" class="screen">
+    <div class="fishing-header">
+      <span id="fishing-spot-name" class="fishing-spot-name"></span>
+      <span id="cast-dots" class="cast-dots">●●●</span>
+    </div>
+
+    <div class="status-row">
+      <div class="weather-box">
+        <div id="fishing-weather-emoji" class="weather-emoji"></div>
+        <div id="fishing-weather-text" class="weather-text"></div>
+      </div>
+      <div class="lure-box">
+        <div class="lure-label">Viehe</div>
+        <div id="fishing-lure-name" class="lure-name">—</div>
+      </div>
+    </div>
+
+    <!-- Lure selector (visible before first cast) -->
+    <div id="lure-selector" class="lure-selector">
+      <div class="lure-selector-title">— valitse viehe —</div>
+      <div id="lure-list" class="lure-list"></div>
+    </div>
+
+    <!-- Water + animation area -->
+    <div id="water-area" class="water-area">
+      <!-- Fisherman silhouette -->
+      <svg class="fisher-svg" viewBox="0 0 80 120" width="80" height="120" xmlns="http://www.w3.org/2000/svg">
+        <!-- Rod (hand → tip upper-left) -->
+        <line x1="54" y1="62" x2="4" y2="12" stroke="#8b6914" stroke-width="2"/>
+        <circle cx="4" cy="12" r="2" fill="#d4a832"/>
+        <!-- Hat crown -->
+        <rect x="44" y="26" width="20" height="10" fill="#1a0e05" rx="1"/>
+        <!-- Hat brim -->
+        <rect x="40" y="35" width="28" height="3" fill="#1a0e05"/>
+        <!-- Head -->
+        <circle cx="54" cy="50" r="10" fill="#2a1808"/>
+        <!-- Body -->
+        <rect x="46" y="60" width="16" height="24" fill="#2a1808"/>
+        <!-- Arm holding rod -->
+        <line x1="46" y1="67" x2="54" y2="62" stroke="#2a1808" stroke-width="5" stroke-linecap="round"/>
+        <!-- Legs -->
+        <rect x="46" y="84" width="6" height="26" fill="#1a1208"/>
+        <rect x="55" y="84" width="6" height="26" fill="#1a1208"/>
+        <!-- Feet -->
+        <rect x="43" y="108" width="9" height="4" fill="#2a1808" rx="1"/>
+        <rect x="54" y="108" width="9" height="4" fill="#2a1808" rx="1"/>
+        <!-- Static fishing line (hidden during cast) -->
+        <line class="fishing-line" x1="4" y1="12" x2="14" y2="78" stroke="#4a3a20" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.6"/>
+      </svg>
+      <!-- Water shimmer lines -->
+      <div class="water-shimmer s1"></div>
+      <div class="water-shimmer s2"></div>
+      <div class="water-shimmer s3"></div>
+      <!-- Flying lure -->
+      <div class="cast-arc" id="cast-arc"></div>
+      <!-- Splash -->
+      <div class="splash-fx" id="splash-fx">💦</div>
+      <!-- Fish (appears on catch) -->
+      <div class="fish-fx" id="fish-fx">🐟</div>
+    </div>
+
+    <!-- Result (appears after each cast) -->
+    <div id="cast-result" class="cast-result" style="display:none"></div>
+
+    <!-- Back to map (appears after spot is complete) -->
+    <button id="back-to-map-btn" class="btn-secondary" onclick="backToMap()" style="display:none">← Takaisin karttaan</button>
+
+    <!-- Cast button -->
+    <button id="cast-btn" class="btn-cast" onclick="handleCast()" style="display:none">⚜ Heitä! ⚜</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
