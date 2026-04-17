@@ -76,6 +76,7 @@ const GAME_DATA = {
 // ═══════════════════════════════════════════════════════════
 let state = {
   biggestPike: null,
+  totalLength: 0,
   spots: [
     { id:'vastaranta',     name:'Vastaranta',     done:false, catch:null },
     { id:'kulmamummola',   name:'Kulmamummola',   done:false, catch:null },
@@ -108,6 +109,7 @@ function startGame() {
 
 function resetState() {
   state.biggestPike = null;
+  state.totalLength = 0;
   state.spots.forEach(s => { s.done = false; s.catch = null; });
   state.currentSpot    = null;
   state.currentWeather = null;
@@ -357,6 +359,7 @@ function completeSpot(catchLength) {
     if (state.biggestPike === null || catchLength > state.biggestPike) {
       state.biggestPike = catchLength;
     }
+    state.totalLength += catchLength;
   }
 
   setTimeout(() => {
@@ -376,6 +379,8 @@ function backToMap() {
 function showEndScreen() {
   document.getElementById('end-biggest').textContent =
     state.biggestPike !== null ? `${state.biggestPike} cm` : '— cm';
+  document.getElementById('end-total').textContent =
+    state.totalLength > 0 ? `${state.totalLength} cm` : '— cm';
 
   document.getElementById('end-summary').innerHTML = state.spots.map(spot => `
     <div class="summary-row">
