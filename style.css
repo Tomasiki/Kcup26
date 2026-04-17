@@ -71,7 +71,7 @@ body {
   letter-spacing: 4px;
   cursor: pointer;
   width: 100%;
-  margin-top: auto;
+  margin-top: 8px;
 }
 .btn-cast:active   { filter: brightness(1.3); }
 .btn-cast:disabled { background: var(--gray-dark); color: var(--gray); border-color: var(--frame); cursor: default; }
@@ -153,7 +153,7 @@ body {
 .pike-label { color: var(--gold-dim); font-size: 10px; letter-spacing: 2px; font-style: italic; }
 .pike-value { color: var(--gold); font-size: 13px; letter-spacing: 2px; font-weight: bold; }
 
-.map-hint { color: var(--gray); font-size: 9px; letter-spacing: 2px; font-style: italic; }
+.map-hint { color: var(--white); font-size: 12px; letter-spacing: 3px; font-style: italic; opacity: 0.8; }
 
 /* End overlay */
 .end-overlay {
@@ -198,6 +198,7 @@ body {
 /* ═══════════════════════════════════
    FISHING SCREEN
 ═══════════════════════════════════ */
+#screen-fishing { gap: 6px; padding: 12px 16px; }
 .fishing-header {
   display: flex;
   justify-content: space-between;
