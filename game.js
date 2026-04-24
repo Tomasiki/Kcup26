@@ -147,6 +147,14 @@ function renderMap() {
   }
 }
 
+function clickRules() {
+  document.getElementById('rules-overlay').style.display = 'flex';
+}
+
+function closeRulesOverlay() {
+  document.getElementById('rules-overlay').style.display = 'none';
+}
+
 function clickBoat() {
   if (state.boatVisited) return;
   document.getElementById('boat-overlay').style.display = 'flex';

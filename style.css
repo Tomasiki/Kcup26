@@ -143,6 +143,27 @@ body {
 .boat-marker { cursor: pointer; }
 .boat-marker.visited { opacity: 0.35; cursor: default; }
 
+.rules-marker { cursor: pointer; }
+.rules-marker:hover rect { fill: #5a2e10; }
+
+.rules-box { max-height: 85vh; overflow-y: auto; }
+.rules-text {
+  width: 100%;
+  color: var(--white);
+  font-size: 11px;
+  line-height: 1.6;
+  border-top: 1px solid var(--frame);
+  border-bottom: 1px solid var(--frame);
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rules-text p { color: var(--white); }
+.rules-text strong { color: var(--gold); }
+.rules-text ul { padding-left: 16px; display: flex; flex-direction: column; gap: 6px; }
+.rules-text li { color: var(--gray); font-style: italic; }
+
 .pike-display {
   display: flex;
   justify-content: space-between;

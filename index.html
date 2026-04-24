@@ -158,6 +158,19 @@
           </g>
         </g>
 
+        <!-- Rules easter egg: kilpailun säännöt -->
+        <g id="rules-marker" class="rules-marker" onclick="clickRules()">
+          <!-- Book cover (75% of original, moved up and right) -->
+          <rect x="89" y="213" width="8" height="6" fill="#3a1800" rx="0.6"/>
+          <!-- Pages (slightly lighter right side) -->
+          <rect x="93" y="213" width="4" height="6" fill="#4a2a10" rx="0 0.6 0.6 0"/>
+          <!-- Spine line -->
+          <line x1="93" y1="213" x2="93" y2="219" stroke="#8b6914" stroke-width="0.7"/>
+          <!-- Horizontal page lines -->
+          <line x1="94" y1="215" x2="96.5" y2="215" stroke="#6b4f12" stroke-width="0.5"/>
+          <line x1="94" y1="217" x2="96.5" y2="217" stroke="#6b4f12" stroke-width="0.5"/>
+        </g>
+
         <!-- Compass -->
         <text x="160" y="14" fill="#d4a832" font-size="9" font-family="serif" font-weight="bold">N</text>
         <line x1="164" y1="16" x2="164" y2="24" stroke="#d4a832" stroke-width="1"/>
@@ -172,6 +185,24 @@
       <span id="biggest-pike" class="pike-value">— cm</span>
     </div>
     <div class="map-hint">valitse kalapaikka</div>
+
+    <!-- Rules easter egg overlay -->
+    <div id="rules-overlay" class="end-overlay" style="display:none">
+      <div class="end-box rules-box">
+        <div class="end-title">⚜ Kilpailun säännöt ⚜</div>
+        <div class="rules-text">
+          <p><strong>1:</strong> Kilpailussa on kaksi sarjaa. Suurin hauki ja suurin yhteistulos.</p>
+          <ul>
+            <li>Suurimman hauen saanut saa 1&nbsp;000&nbsp;000 pistettä. Toiseksi tullut saa 2 pistettä. Kolmanneksi tullut saa 1 pisteen.</li>
+            <li>Suurimman yhteistuloksen saanut saa 3 pistettä. Toiseksi tullut saa 2 pistettä. Kolmanneksi tullut saa 1 pisteen.</li>
+            <li>Molempien sarjojen pisteet lasketaan yhteen ja näin määritellään voittaja.</li>
+          </ul>
+          <p><strong>2:</strong> Kilpailun sääntöjä ei saa lähettää kilpailijoille kilpailun ollessa käynnissä.</p>
+          <p><strong>3:</strong> Jos Shimanski veneessä olijat luulevat osaavansa kalastaa, tulee heitä rankaista metsätappelussa.</p>
+        </div>
+        <button class="btn-primary" onclick="closeRulesOverlay()">OK</button>
+      </div>
+    </div>
 
     <!-- Boat easter egg overlay -->
     <div id="boat-overlay" class="end-overlay" style="display:none">
